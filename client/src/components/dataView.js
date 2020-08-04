@@ -47,7 +47,7 @@ class DataView extends Component {
   componentWillReceiveProps(props) {
     // properties changed
     axios
-      .get("http://localhost:8000/tasks/history/" + props.title)
+      .get("/tasks/history/" + props.title)
       .then((response) => {
         this.setState({ tasks: response.data.reverse() });
       })
@@ -70,21 +70,16 @@ class DataView extends Component {
                 console.log("new data", newData);
                 newData = { ...newData, date: this.props.title };
 
-                axios
-                  .post("http://localhost:8000/tasks/add", newData)
-                  .then((res) =>
-                    axios
-                      .get(
-                        "http://localhost:8000/tasks/history/" +
-                          this.props.title
-                      )
-                      .then((response) => {
-                        this.setState({ tasks: response.data.reverse() });
-                      })
-                      .catch(function (error) {
-                        console.log(error);
-                      })
-                  );
+                axios.post("/tasks/add", newData).then((res) =>
+                  axios
+                    .get("/tasks/history/" + this.props.title)
+                    .then((response) => {
+                      this.setState({ tasks: response.data.reverse() });
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    })
+                );
 
                 resolve();
               }),
@@ -92,16 +87,10 @@ class DataView extends Component {
               new Promise((resolve) => {
                 if (oldData) {
                   axios
-                    .post(
-                      "http://localhost:8000/tasks/update/" + oldData._id,
-                      newData
-                    )
+                    .post("/tasks/update/" + oldData._id, newData)
                     .then((res) =>
                       axios
-                        .get(
-                          "http://localhost:8000/tasks/history/" +
-                            this.props.title
-                        )
+                        .get("/tasks/history/" + this.props.title)
                         .then((response) => {
                           this.setState({ tasks: response.data.reverse() });
                         })
