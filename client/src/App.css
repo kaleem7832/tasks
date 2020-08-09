@@ -16,7 +16,7 @@
   margin: 5px;
 }
 .active {
-  background: rgb(2, 189, 2);
+  background: rgb(0, 123, 255);
   color: #fff;
 }
 .dat {
@@ -37,4 +37,8 @@
 }
 .MuiFormControl-marginNormal {
   margin: 0 !important;
+}
+.week-date {
+  color: #777;
+  font-size: 14px;
 }

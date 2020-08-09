@@ -66,24 +66,30 @@ export default class Calender extends Component {
 
   render() {
     return (
-      <div className="calendar">
-        <div className="prev arrow" onClick={() => this.getWeekdates(0)}>
-          &#8592;
+      <React.Fragment>
+        <div className="calendar">
+          <div className="week-date">{this.state.dates[0]}</div>
+          <div className="week-date">{this.state.dates[6]}</div>
         </div>
-        {this.state.dates.map((date, i) => (
-          <DateTile
-            key={date}
-            date={this.state.week_dates[i]}
-            fulldate={date}
-            active={this.props.cdate === date}
-            day={this.state.days[i]}
-            dateSelected={this.props.onDateSelect}
-          />
-        ))}
-        <div className="next arrow" onClick={() => this.getWeekdates(1)}>
-          &#8594;
+        <div className="calendar">
+          <div className="prev arrow" onClick={() => this.getWeekdates(0)}>
+            &#8592;
+          </div>
+          {this.state.dates.map((date, i) => (
+            <DateTile
+              key={date}
+              date={this.state.week_dates[i]}
+              fulldate={date}
+              active={this.props.cdate === date}
+              day={this.state.days[i]}
+              dateSelected={this.props.onDateSelect}
+            />
+          ))}
+          <div className="next arrow" onClick={() => this.getWeekdates(1)}>
+            &#8594;
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
