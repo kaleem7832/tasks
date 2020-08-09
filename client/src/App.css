@@ -35,3 +35,6 @@
   line-height: 50px;
   cursor: pointer;
 }
+.MuiFormControl-marginNormal {
+  margin: 0 !important;
+}

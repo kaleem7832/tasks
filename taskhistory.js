@@ -6,6 +6,7 @@ let Task = new Schema(
   {
     project: {
       type: String,
+      text: true,
       required: true,
     },
     date: {

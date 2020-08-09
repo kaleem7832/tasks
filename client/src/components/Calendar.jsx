@@ -30,7 +30,7 @@ export default class Calender extends Component {
 
     for (let i = 0; i <= 6; i++) {
       dates.push(
-        moment(monday, "DD-MM-YYYY").add("days", i).format("DD-MM-YYYY")
+        moment(monday, "DD-MM-YYYY").add(i, "days").format("DD-MM-YYYY")
       );
     }
     dates.map((date) => {
@@ -46,7 +46,7 @@ export default class Calender extends Component {
       let date = this.state.dates[6];
       for (let i = 1; i <= 7; i++) {
         week.push(
-          moment(date, "DD-MM-YYYY").add("days", i).format("DD-MM-YYYY")
+          moment(date, "DD-MM-YYYY").add(i, "days").format("DD-MM-YYYY")
         );
       }
     }

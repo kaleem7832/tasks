@@ -7,7 +7,8 @@ export default class DateTile extends Component {
         className={this.props.active ? "date active" : "date"}
         onClick={() => this.props.dateSelected(this.props.fulldate)}
       >
-        {this.props.date} <div className="day">{this.props.day}</div>
+        {this.props.date}
+        <div className="day">{this.props.day}</div>
       </div>
     );
   }

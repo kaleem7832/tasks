@@ -35,20 +35,11 @@ taskRoutes.route("/update/:id").post(function (req, res) {
       task.status = req.body.status;
       task.programmer = req.body.programmer;
       task.task = req.body.task;
-      task.enddate = req.body.enddate;
-      task.startdate = req.body.startdate;
+      task.endtime = req.body.endtime;
+      task.starttime = req.body.starttime;
       task
         .save()
         .then((task) => {
-          Project.updateOne(
-            { last: task._id },
-            {
-              task: task.task,
-              programmer: task.programmer,
-              status: task.status,
-            },
-            function (err, numberAffected, rawResponse) {}
-          );
           res.status(200).send(task);
         })
         .catch((err) => {
@@ -60,49 +51,9 @@ taskRoutes.route("/update/:id").post(function (req, res) {
 
 // Defined delete | remove | destroy route
 taskRoutes.route("/delete/:id").get(function (req, res) {
-  let id = req.params.id;
-
-  Task.findById(id, function (err, b) {
-    Task.find({ project: b.project }, function (e, t) {
-      if (t.length > 1) {
-        Task.findByIdAndRemove(
-          { _id: req.params.id },
-          { useFindAndModify: false },
-          function (err, task) {
-            if (err) res.json(err);
-            else res.json("Successfully removed");
-          }
-        );
-        Project.find({ last: req.params.id }, function (err, project) {
-          if (err) {
-            console.log(err);
-          } else {
-            if (project.length) {
-              Task.findOne(
-                { project: project[0].project },
-                {},
-                { sort: { _id: -1 } },
-                function (err, task) {
-                  console.log("old :" + task);
-                  Project.updateOne(
-                    { _id: project[0]._id },
-                    {
-                      task: task.task,
-                      programmer: task.programmer,
-                      status: task.status,
-                      last: task._id,
-                    },
-                    function (err, numberAffected, rawResponse) {}
-                  );
-                }
-              ).then(console.log("you just deleted the latest one 2"));
-            }
-          }
-        });
-      } else {
-        res.status(200).send("You can not delete the last task");
-      }
-    });
+  Task.findByIdAndRemove({ _id: req.params.id }, function (err, task) {
+    if (err) res.json(err);
+    else res.status(200).json("Successfully removed");
   });
 });
 // Defined get data(index or listing) route
@@ -115,6 +66,34 @@ taskRoutes.route("/history/:title").get(function (req, res) {
       res.status(200).send(tasks);
     }
   });
+});
+taskRoutes.route("/filter/").get(function (req, res) {
+  let programmer = req.query.programmer;
+  let project = req.query.project;
+  let sdate = req.query.startdate;
+  let edate = req.query.enddate;
+
+  Task.find(
+    {
+      $and: [
+        { project: { $regex: project, $options: "i" } },
+        { programmer: { $regex: programmer, $options: "i" } },
+        {
+          date: {
+            $gte: sdate,
+            $lte: edate,
+          },
+        },
+      ],
+    },
+    function (err, tasks) {
+      if (err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).send(tasks);
+      }
+    }
+  );
 });
 
 module.exports = taskRoutes;
