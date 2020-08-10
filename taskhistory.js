@@ -15,23 +15,23 @@ let Task = new Schema(
     },
     task: {
       type: String,
-      required: true,
+      required: false,
     },
     programmer: {
       type: String,
-      required: true,
+      required: false,
     },
     status: {
       type: String,
-      required: true,
+      required: false,
     },
     starttime: {
       type: String,
-      required: true,
+      required: false,
     },
     endtime: {
       type: String,
-      //required: true,
+      required: false,
     },
   },
   {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import axios from "axios";
 import moment from "moment";
 class Result extends Component {
@@ -49,7 +50,7 @@ class Result extends Component {
               <td>{task.programmer}</td>
               <td>{task.task}</td>
               <td>{moment(task.starttime).format("LT")}</td>
-              <td>{moment(task.endttime).format("LT")}</td>
+              <td>{task.endtime ? moment(task.endtime).format("LT") : "-"}</td>
               <td>{task.status}</td>
             </tr>
           ))}

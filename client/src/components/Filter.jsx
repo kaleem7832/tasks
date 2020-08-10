@@ -10,6 +10,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import axios from "axios";
 
 class Filter extends Component {
   constructor(props) {
@@ -19,9 +21,19 @@ class Filter extends Component {
       programmer: "",
       startdate: moment().format("MM-DD-YYYY"),
       enddate: moment().format("MM-DD-YYYY"),
+      project_lists: [],
     };
   }
-
+  componentDidMount() {
+    axios
+      .get("/tasks/projects/")
+      .then((response) => {
+        this.setState({ project_lists: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   handlesDateChange = (date) => {
     this.setState({ startdate: moment(date).format("MM-DD-YYYY") });
   };
@@ -31,8 +43,8 @@ class Filter extends Component {
   handleProgrammer = (event) => {
     this.setState({ programmer: event.target.value });
   };
-  handleProject = (event) => {
-    this.setState({ project: event.target.value });
+  handleProject = (event, values) => {
+    this.setState({ project: values });
   };
 
   render() {
@@ -85,10 +97,14 @@ class Filter extends Component {
           </FormControl>
         </div>
         <div className="col">
-          <TextField
-            id="standard-basic"
-            label="Project"
-            onChange={this.handleProject}
+          <Autocomplete
+            id="combo-box-demo"
+            options={this.state.project_lists}
+            getOptionLabel={(option) => option}
+            onInputChange={this.handleProject}
+            renderInput={(params) => (
+              <TextField {...params} label="Project" variant="standard" />
+            )}
           />
         </div>
         <div className="col">

@@ -67,6 +67,17 @@ taskRoutes.route("/history/:title").get(function (req, res) {
     }
   });
 });
+
+taskRoutes.route("/projects").get(function (req, res) {
+  Task.distinct("project", function (err, projects) {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(projects);
+    }
+  });
+});
+
 taskRoutes.route("/filter/").get(function (req, res) {
   let programmer = req.query.programmer;
   let project = req.query.project;

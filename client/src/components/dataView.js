@@ -61,7 +61,7 @@ class DataView extends Component {
     axios
       .get("/tasks/history/" + props.title)
       .then((response) => {
-        this.setState({ tasks: response.data.reverse() });
+        this.setState({ tasks: response.data });
       })
       .catch(function (error) {
         console.log(error);
@@ -92,7 +92,7 @@ class DataView extends Component {
                         setTimeout(() => {
                           this.setState({ success: false });
                         }, 5000);
-                        this.setState({ tasks: response.data.reverse() });
+                        this.setState({ tasks: response.data });
                       })
                       .catch(function (error) {
                         console.log("failure", error);
