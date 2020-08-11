@@ -42,3 +42,13 @@
   color: #777;
   font-size: 14px;
 }
+
+.bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+.hide {
+  display: none;
+}
