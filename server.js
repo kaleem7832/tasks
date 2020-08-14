@@ -74,7 +74,7 @@ app.use("/tasks", taskRoutes);
 //         service: "gmail",
 //         auth: {
 //           user: "kaleem.nalband@gmail.com",
-//           pass: "Faiza@123",
+//           pass: "********",
 //         },
 //       });
 
