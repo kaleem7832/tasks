@@ -33,6 +33,7 @@ taskRoutes.route("/update/:id").post(function (req, res) {
     if (!task) res.status(404).send("data is not found");
     else {
       task.status = req.body.status;
+      task.project = req.body.project;
       task.programmer = req.body.programmer;
       task.task = req.body.task;
       task.endtime = req.body.endtime;
