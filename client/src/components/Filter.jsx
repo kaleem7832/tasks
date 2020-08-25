@@ -93,6 +93,7 @@ class Filter extends Component {
               <MenuItem value="Ketan">Ketan</MenuItem>
               <MenuItem value="Karishma">Karishma</MenuItem>
               <MenuItem value="Kaleem">Kaleem</MenuItem>
+              <MenuItem value="Rahul">Rahul</MenuItem>
             </Select>
           </FormControl>
         </div>

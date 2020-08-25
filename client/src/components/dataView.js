@@ -23,6 +23,7 @@ class DataView extends Component {
           Ketan: "Ketan",
           Karishma: "Karishma",
           Kaleem: "Kaleem",
+          Rahul: "Rahul",
         },
       },
       {
